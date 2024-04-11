@@ -9,6 +9,10 @@ function observe(obj) {
     for (const key in obj) {
         let internalValue = obj[key]
         const funs = new Set()
+
+        if (typeof internalValue === 'object') {
+            observe(internalValue)
+        }
         Object.defineProperty(obj, key, {
             get() {
                 // 收集依赖
